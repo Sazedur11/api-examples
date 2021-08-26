@@ -1,0 +1,18 @@
+h1{
+    text-align: center;
+}
+.country{
+    text-align: center;
+    color: #c4eeff;
+    background-color: teal;
+    border: 5px solid rgb(224 162 83);
+    border-radius: 25px;
+    margin: 15px;
+    padding: 15px;
+}
+.country h3{
+    font-size: 28px;
+}
+.country {
+    font-size: 22px;
+}
