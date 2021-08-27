@@ -1,5 +1,9 @@
-h1{
+h2{
     text-align: center;
+}
+#countries{
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
 }
 .country{
     text-align: center;
@@ -10,9 +14,22 @@ h1{
     margin: 15px;
     padding: 15px;
 }
+.country-details{
+    width: 60%;
+    margin: auto;
+    text-align: center;
+    color: teal;
+    background-color: #F0FFF0;
+    border: 5px solid teal;
+    border-radius: 25px;
+    padding: 15px;
+}
 .country h3{
     font-size: 28px;
 }
-.country {
+.country-details h3{
+    font-size: 36px;
+}
+.country, .country-details {
     font-size: 22px;
 }

@@ -11,15 +11,30 @@ const displayCountries = countries => {
         console.log(country)
         const div = document.createElement('div');
         div.classList.add('country');
-        const h3 = document.createElement('h3');
-        h3.innerText = country.name;
-        div.appendChild(h3);
-        const p = document.createElement('p')
-        p.innerText = `
-            ${country.capital}
-            ${country.flag}
+        div.innerHTML = `
+            <h3>${country.name}</h3>
+            <p>${country.capital}<p/>
+            <button onclick="loadCountryByName('${country.name}')">Details</button>
         `;
-        div.appendChild(p)
         countriesDiv.appendChild(div)
     })
+}
+
+const loadCountryByName = name => {
+    const url = `https://restcountries.eu/rest/v2/name/${name}`
+    fetch(url)
+        .then(res => res.json())
+        .then(data => displayCountry(data[0]))
+}
+
+const displayCountry = country => {
+    const countryDiv = document.getElementById('country-details');
+    countryDiv.classList.add('country-details')
+    countryDiv.innerHTML = `
+        Name: <h3>${country.name}</h3>
+        Capital: <p>${country.capital}<p/>
+        Currencies: <p>${country.currencies.name
+        }<p/>
+        <img width="200px" src="${country.flag}"/>
+`
 }
