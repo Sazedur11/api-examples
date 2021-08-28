@@ -33,7 +33,8 @@ const displayCountry = country => {
     countryDiv.innerHTML = `
         Name: <h3>${country.name}</h3>
         Capital: <p>${country.capital}<p/>
-        Currencies: <p>${country.currencies.name
+        Currencies: <p>${country.currencies[0].name
+        } ${country.currencies[0].symbol
         }<p/>
         <img width="200px" src="${country.flag}"/>
 `
