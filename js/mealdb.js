@@ -43,21 +43,33 @@ const searchFood = () => {
 
 const displayFoodResult = meals => {
     const searchResult = document.getElementById('search-result');
-    // console.log(meals)
-    meals.forEach(meal => {
+    searchResult.innerHTML = '';
+
+    if (meals == null) {
+        const errorMessage = document.getElementById('error-field')
         const div = document.createElement('div');
-        div.classList.add('col');
-        div.innerHTML = `
-        <div onclick="mealDetails(${meal.idMeal})" class="card h-100">
-            <img src="${meal.strMealThumb}" class="card-img-top" alt="...">
-            <div class="card-body">
-                <h5 class="card-title">${meal.strMeal}</h5>
-                <p class="card-text">${meal.strInstructions.slice(0, 200)}</p>
+        div.classList.add('error')
+        div.innerHTML = `<p class=" p-5 bg-danger">Result Not Found</p>`
+        searchResult.appendChild(div);
+    }
+    // console.log(meals)
+    else {
+        meals.forEach(meal => {
+            const div = document.createElement('div');
+            div.classList.add('col');
+            div.innerHTML = `
+            <div onclick="mealDetails(${meal.idMeal})" class="card h-100">
+                <img src="${meal.strMealThumb}" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">${meal.strMeal}</h5>
+                    <p class="card-text">${meal.strInstructions.slice(0, 200)}</p>
+                </div>
             </div>
-        </div>
-    `
-        searchResult.appendChild(div)
-    })
+        `
+            searchResult.appendChild(div)
+        })
+    }
+
 }
 
 const mealDetails = mealId => {
@@ -69,6 +81,7 @@ const mealDetails = mealId => {
 const displayMealDetails = meal => {
     console.log(meal)
     const mealDetails = document.getElementById('meal-details');
+    mealDetails.textContent = '';
     const div = document.createElement('div');
     div.classList.add('card');
     div.innerHTML = `
