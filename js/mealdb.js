@@ -29,17 +29,34 @@ const displaySearchResult = meals => {
 }
 */
 
-const searchFood = () => {
+const searchFood = async () => {
     const searchField = document.getElementById('search-field');
     const searchText = searchField.value;
     searchField.value = '';
-    const url = `https://www.themealdb.com/api/json/v1/1/search.php?s=${searchText}`
-    fetch(url)
-        .then(res => res.json())
-        .then(data => displayFoodResult(data.meals))
+    const emtyMessage = document.getElementById('emty-field')
+    if (searchText == '') {
+        emtyMessage.innerHTML = 'No result found';
+    }
+    else {
+        const mealDetails = document.getElementById('meal-details');
+        mealDetails.innerHTML = '';
+        emtyMessage.innerText = '';
+        const url = `https://www.themealdb.com/api/json/v1/1/search.php?s=${searchText}`
 
-    // console.log(url)
+        const res = await fetch(url);
+        const data = await res.json();
+        displayFoodResult(data.meals)
+
+        // fetch(url)
+        //     .then(res => res.json())
+        //     .then(data => displayFoodResult(data.meals))
+    }
+
 }
+
+/*
+    asyns await and normal fetch same jinis. async use korle fetch ta ke amra variable diye likhte pari thle variable er pore await likhte hoi....
+*/
 
 const displayFoodResult = meals => {
     const searchResult = document.getElementById('search-result');
@@ -49,7 +66,7 @@ const displayFoodResult = meals => {
         const errorMessage = document.getElementById('error-field')
         const div = document.createElement('div');
         div.classList.add('error')
-        div.innerHTML = `<p class=" p-5 bg-danger">Result Not Found</p>`
+        div.innerHTML = `<p class=" p-5 bg-danger text-center">Result Not Found</p>`
         searchResult.appendChild(div);
     }
     // console.log(meals)
@@ -71,6 +88,7 @@ const displayFoodResult = meals => {
     }
 
 }
+/*-- single meal details --*/
 
 const mealDetails = mealId => {
     const url = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${mealId}`
@@ -79,7 +97,7 @@ const mealDetails = mealId => {
         .then(data => displayMealDetails(data.meals[0]))
 }
 const displayMealDetails = meal => {
-    console.log(meal)
+    // console.log(meal)
     const mealDetails = document.getElementById('meal-details');
     mealDetails.textContent = '';
     const div = document.createElement('div');
@@ -90,7 +108,7 @@ const displayMealDetails = meal => {
             <h5 class="card-title">${meal.strMeal}</h5>
             <p class="card-text ">${meal.strInstructions.slice(0, 200)}</p>
             <a href="${meal.strYoutube}" class="btn btn-primary ">Go somewhere</a>
-    </div>
+        </div>
     `;
     mealDetails.appendChild(div)
 }
